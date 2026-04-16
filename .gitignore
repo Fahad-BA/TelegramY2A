@@ -61,6 +61,8 @@ logs/
 bot_token.txt
 .env
 config.py
+*.env
+!.env.example
 
 # Systemd
 *.service
