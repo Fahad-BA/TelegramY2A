@@ -1,148 +1,123 @@
-# Telegram Y2A Bot
+# 🎵 Y2A — YouTube to Audio Telegram Bot
 
-[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://python.org)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![YT-DLP](https://img.shields.io/badge/yt--dlp-supported-red.svg)](https://github.com/yt-dlp/yt-dlp)
-[![Telegram](https://img.shields.io/badge/telegram-bot-32AEE3.svg)](https://core.telegram.org/bots)
+![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python&logoColor=white)
+![python-telegram-bot](https://img.shields.io/badge/Telegram%20Bot-22.7-0088cc?logo=telegram&logoColor=white)
+![yt-dlp](https://img.shields.io/badge/yt--dlp-latest-red)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Platform](https://img.shields.io/badge/platform-Linux-lightgrey?logo=linux&logoColor=white)
 
-A Telegram bot that downloads YouTube videos and converts them to MP3 format. Built with passion and good vibes.
-
-## Features
-
-- ⚡ **Fast download** - Optimized for speed with concurrent downloads
-- 🎵 **MP3 conversion** - Converts YouTube videos to high-quality MP3 files
-- 📱 **Telegram integration** - Works seamlessly with Telegram
-- 🗑️ **Auto-cleanup** - Automatically deletes files after sending
-- ⏱️ **Duration limit** - Limits downloads to 7 minutes maximum
-- 🔥 **Vibe coded** - Built with good vibes by Fahad Alhuqaili
-
-## Prerequisites
-
-- Python 3.8 or higher
-- Telegram Bot Token
-- Deno (for JavaScript runtime)
-
-## Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/fahad-alhuqaili/TelegramY2A.git
-   cd TelegramY2A
-   ```
-
-2. **Create virtual environment**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Install Deno** (required for yt-dlp)
-   ```bash
-   curl -fsSL https://deno.land/install.sh | sh
-   ```
-
-5. **Configure your bot token**
-   - Replace the `BOT_TOKEN` in `bot.py` with your actual bot token from BotFather
-
-6. **Run the bot**
-   ```bash
-   python bot.py
-   ```
-
-Or run as a systemd service:
-
-```bash
-sudo cp y2a.service /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl enable y2a.service
-sudo systemctl start y2a.service
-```
-
-## Usage
-
-1. **Start a chat with your bot** in Telegram
-2. **Send any YouTube video link** to the bot
-3. **Wait for the download** - The bot will show "جاري التحميل..."
-4. **Receive the MP3 file** - The bot sends the audio file with the song title
-5. **Done!** - The file is automatically deleted after sending
-
-## Configuration
-
-### Bot Settings
-- **Max duration**: 7 minutes (420 seconds)
-- **Audio quality**: 192 kbps MP3
-- **File naming**: `datetime-song_title.mp3`
-- **Concurrent downloads**: 3
-
-### Environment Variables
-- `BOT_TOKEN`: Your Telegram bot token
-- `PATH`: Include Deno binary path for yt-dlp
-
-## Bot Commands
-
-The bot doesn't require any special commands. Simply send a YouTube URL and it will:
-
-1. Validate the URL
-2. Download the video
-3. Convert to MP3
-4. Send the audio file
-5. Clean up temporary files
-
-## File Structure
-
-```
-TelegramY2A/
-├── bot.py              # Main bot script
-├── requirements.txt    # Python dependencies
-├── y2a.service       # Systemd service file
-├── run.sh            # Quick start script
-├── Downloads/        # Temporary download directory
-├── .gitignore        # Git ignore file
-└── README.md         # This file
-```
-
-## Troubleshooting
-
-### Slow Downloads
-- Make sure Deno is installed and in your PATH
-- Check your internet connection
-- Try shorter videos first
-
-### JavaScript Runtime Error
-If you see "No supported JavaScript runtime could be found":
-```bash
-curl -fsSL https://deno.land/install.sh | sh
-export PATH="$HOME/.deno/bin:$PATH"
-```
-
-### Service Issues
-If running as a service:
-```bash
-sudo systemctl status y2a.service
-sudo journalctl -u y2a.service -f
-```
-
-## Contributing
-
-This project is open for contributions! Feel free to:
-- Report bugs
-- Suggest features
-- Submit pull requests
-- Improve the documentation
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Author
-
-**Fahad Alhuqaili** - Built with good vibes and positive energy 🌟
+A Telegram bot that downloads audio from YouTube and SoundCloud links and lets you search YouTube by name — all without a YouTube API key. Built with `yt-dlp` for reliable extraction and `python-telegram-bot` for a smooth inline-keyboard experience.
 
 ---
 
-*Made with ❤️ and good vibes*
+## ✨ Features
+
+- 🔗 **Direct URL Download** — Send a YouTube or SoundCloud link, get an MP3 back
+- 🔍 **YouTube Search** — Use `/search <song name>` to browse 5 results at a time with inline buttons
+- 📄 **Paginated Results** — Load more results with a single tap
+- ⏱️ **Duration Guard** — Rejects videos longer than 7 minutes (configurable)
+- 🎧 **192 kbps MP3 Output** — Converted via FFmpeg for consistent quality
+- 🧹 **Auto Cleanup** — Downloaded files are deleted after sending
+- 🇸🇦 **Arabic UI** — Bot messages in Arabic for the target audience
+- 🔐 **No YouTube API Key Needed** — Uses `yt-dlp` search extraction
+
+---
+
+## 🛠️ Tech Stack
+
+| Tool | Purpose |
+|------|---------|
+| **Python 3** | Core runtime |
+| **python-telegram-bot** | Telegram Bot API |
+| **yt-dlp** | YouTube / SoundCloud extraction |
+| **FFmpeg** | Audio conversion to MP3 |
+| **python-dotenv** | Environment variable management |
+| **systemd** | Production process management |
+
+---
+
+## 📦 Installation
+
+### Prerequisites
+
+- Python 3.10+
+- [FFmpeg](https://ffmpeg.org/) installed and on `PATH`
+- A Telegram Bot token from [@BotFather](https://t.me/BotFather)
+
+### Steps
+
+```bash
+# Clone the repo
+git clone https://github.com/Fahad-BA/TelegramY2A.git
+cd TelegramY2A
+
+# Create and activate a virtual environment
+python -m venv venv
+source venv/bin/activate    # Linux/macOS
+# venv\Scripts\activate     # Windows
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Configure your bot token
+cp .env.example .env
+echo "BOT_TOKEN=your_token_here" > .env
+
+# Run the bot
+python bot.py
+```
+
+---
+
+## 🚀 Usage
+
+### Direct Download
+
+Send any YouTube or SoundCloud URL as a plain message — the bot downloads and returns the audio as an MP3 file.
+
+### Search
+
+```
+/search Lovestruck Jxdn
+```
+
+The bot returns 5 inline results. Tap a button to download, or tap **➡️ المزيد** for more results.
+
+### Run as a systemd Service (Production)
+
+```bash
+# Edit the service file paths to match your setup
+sudo cp y2a.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now y2a
+```
+
+---
+
+## ⚙️ Configuration
+
+| Variable | File | Description |
+|----------|------|-------------|
+| `BOT_TOKEN` | `.env` | Telegram Bot API token from BotFather |
+| `max_duration` | `bot.py` | Max video length in seconds (default: 420 = 7 min) |
+| `preferredquality` | `bot.py` | MP3 bitrate in kbps (default: 192) |
+
+---
+
+## 📁 Project Structure
+
+```
+Y2A/
+├── bot.py              # Main bot logic (search, download, send)
+├── requirements.txt    # Python dependencies
+├── .env.example        # Template for environment variables
+├── y2a.service         # systemd unit file for production
+├── Downloads/          # Temporary audio storage (auto-cleaned)
+└── .gitignore
+```
+
+---
+
+## 📝 License
+
+This project is licensed under the MIT License.
