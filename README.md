@@ -42,6 +42,7 @@ A Telegram bot that downloads audio from YouTube and SoundCloud links and lets y
 
 - Python 3.10+
 - [FFmpeg](https://ffmpeg.org/) installed and on `PATH`
+- [Deno](https://deno.land/) (JS runtime required by some `yt-dlp` extractors)
 - A Telegram Bot token from [@BotFather](https://t.me/BotFather)
 
 ### Steps
@@ -61,7 +62,7 @@ pip install -r requirements.txt
 
 # Configure your bot token
 cp .env.example .env
-echo "BOT_TOKEN=your_token_here" > .env
+# Edit .env and replace the placeholder with your actual token
 
 # Run the bot
 python bot.py
