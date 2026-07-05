@@ -1,0 +1,16 @@
+[Unit]
+Description=YouTube to MP3 Telegram Bot
+After=network.target
+
+[Service]
+Type=simple
+User=fahad
+WorkingDirectory=/home/fahad/Y2A
+Environment="PATH=/home/fahad/.deno/bin:/usr/local/bin:/usr/bin:/bin"
+EnvironmentFile=/home/fahad/Y2A/.env
+ExecStart=/home/fahad/Y2A/venv/bin/python /home/fahad/Y2A/bot.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
