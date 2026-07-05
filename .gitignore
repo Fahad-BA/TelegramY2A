@@ -65,7 +65,6 @@ config.py
 !.env.example
 
 # Systemd
-*.service
 
 # Temporary files
 *.tmp
