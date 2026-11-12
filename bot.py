@@ -41,6 +41,11 @@ YDL_OPTS = {
     'fragment_retries': 3,
 }
 
+# cookies.txt (تنسيق Netscape) — يُستخدم للتحقق من يوتيوب إذا كان ملف الكوكيز موجوداً
+COOKIES_FILE = os.getenv('COOKIES_FILE', '')
+if COOKIES_FILE and os.path.isfile(COOKIES_FILE):
+    YDL_OPTS['cookiefile'] = COOKIES_FILE
+
 async def search_youtube(query: str, page: int = 1) -> list:
     """Search YouTube using yt-dlp without API."""
     # Use more direct search approach
